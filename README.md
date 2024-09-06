@@ -2,7 +2,7 @@
 ## Objetivos
 A disciplina de Algoritmos e Programação é fundamental para o curso de Análise e Desenvolvimento de sistemas.Nesse sentido, aqui estão reunidos os conteúdos da disciplina.(em andamento)
 ## Atividades
-Pasta com atividades passadas durante o progresso da disciplina
+Pasta com atividades passadas durante o progresso da disciplina.
 ##(EM ANDAMENTO)
 
 
