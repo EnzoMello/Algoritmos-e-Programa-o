@@ -1,6 +1,5 @@
 # SOBRE PRÁTICA DE RECURSIVIDADE
 ## Objetivos
-###---------------------------------------------------------
 A disciplina de Algoritmos e Programação é fundamental para o curso de Análise e Desenvolvimento de sistemas.Nesse sentido, aqui está reunido as atividades da disciplina.
 
 
