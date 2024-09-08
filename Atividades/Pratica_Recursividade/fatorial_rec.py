@@ -120,41 +120,42 @@ def exponencial_recursivo(valor1, valor2):
 
 # FUNÇÃO QUE SOMA UM VETOR DE ELEMENTOS ALEATÓRIOS EM UM INTERVALO A,B
 def soma_vetor():
-    A, B = input().split()
+    A, B = map(int, input().split())
+    
+    # PEDINDO QNTD DE ELEMENTOS NO VETOR
+    n = int(input("Quantidade de elementos no vetor N: "))
     vetor = []
-    final = ''
+    for _ in range(n):
+        vetor.append(random.randint(A,B))
 
-    if int(A) < int(B):
-        min = int(A)
-        max = int(B)
+    resultado = soma_vetor_recursivo(vetor)
+    
+    return resultado
+
+# FUNÇÃO RECURSIVA PARA SOMAR ELEMENTOS DO VETOR
+def soma_vetor_recursivo(vetor_):
+    if not vetor_:
+        return 0
     else:
-        min = int(B)
-        max = int(A)
-
-    for elemento in range(max):
-        numero = random.randint(min, max)
-        vetor.append(numero)
-
-    final += '{} = {}'.format(vetor,sum(vetor))
-    return final
+        return vetor_[0] + soma_vetor_recursivo(vetor_[1:])
+    
 
 # FUNÇÃO QUE CONTA VOGAIS E CONSOANTES DE UMA FRASE
 def vogal_e_consoante():
     frase = input().strip().upper()
-    vogais = 0
-    consoantes = 0
+    return recursiva_vogal_consoante(frase,0,0,0)
 
-    for caractere in range(len(frase)):
-        letra = frase[caractere]
-        codigo = ord(letra)
-
-        if codigo == 65 or codigo == 69 or codigo == 73 or codigo == 79 or codigo == 85:
-            vogais += 1
-        elif codigo > 64 and codigo < 91 and codigo != 65 and codigo != 69 and codigo != 73 and codigo != 79 and codigo != 85:
-            consoantes += 1
-        
-    final = '{} e {}'.format(vogais,consoantes)
-
-    return final
+# FUNÇÃO RECURSIVA PARA VOGAL E CONSOANTE
+def recursiva_vogal_consoante(frase,index,vogais,consoantes):
+    if index >= len(frase):
+        return '{} e {}'.format(vogais,consoantes)
+    letra = frase[index]
+    codigo = ord(letra)
+    if codigo in (65,69,73,79,85):
+        vogais += 1
+    elif codigo >= 65 and codigo <= 90:
+        consoantes +=1
+    
+    return recursiva_vogal_consoante(frase,index + 1,vogais,consoantes)
 
 main()
