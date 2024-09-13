@@ -26,7 +26,7 @@ def main():
         # CHAMA A FUNÇÃO DE ESCOLHA
         escolher = escolha_feita()
         if escolher == 1:
-            print("Diga as torres logo abaixo.")
+            print("\033[0;33mDiga as torres logo abaixo.\033[m")
             if rodada == 1:
                 contador_1 += 1
             elif rodada == 2:
@@ -34,7 +34,8 @@ def main():
             
             transferencias()
 
-        elif escolher == '2':
+        elif escolher == 2:
+            print("\033[0;33mVocê optou por ENCERRAR o programa,até breve!!\033[m")
             break
 
         if 'B' not in valores_R and 'B' not in valores_G and 'G' not in valores_R and 'G' not in valores_B and 'R' not in valores_B and 'R' not in valores_G:
@@ -45,43 +46,55 @@ def main():
             print("JOGADOR 1: {} pontos".format(contador_1))
             print("JOGADOR 2: {} pontos".format(contador_2))
 
+            if contador_1 > contador_2:
+                print("\033[0;32mVENCEDOR FOI O JOGADOR 1\033[m")
+            elif contador_2 > contador_1:
+                print("\033[0;32mVENCEDOR FOI O JOGADOR 2\032[m")
+            else:
+                print("\033[0;32mTEMOS UM EMPATE!!!\032[m")
+
+
+
 
 # FUNÇÃO SOBRE O OBJETIVO DO JOGO
 def objetivo():
-    esclarecendo = " Seja bem-vindo, você possui três torres(R,G e B),sendo que R está completamente cheia de itens enquanto as outras duas estão vazias.\n Você deve fazer transferências de itens entre as torres, de modo a cada torre ter apenas itens de sua letra. \n Vence o jogador com menos rodadas para atingir o objetivo."
+    esclarecendo = " \033[0;34mSeja bem-vindo, você possui três torres(R,G e B),sendo que R está completamente cheia de itens enquanto as outras duas estão vazias.\n Você deve fazer transferências de itens entre as torres, de modo a cada torre ter apenas itens de sua letra. \n Vence o jogador com menos rodadas para atingir o objetivo.\033[m"
     return esclarecendo
 
 # FUNÇÃO COM MENU DO JOGO
 def menu():
-    menu_inicial = '''     ------------------> MODOS DE JOGO <--------------------
-    [1] -> Nível Básico
-    [2] -> Nível Intermediário
-    [3] -> Nível Avançado
-    -------------------------------------------------
+    menu_inicial = '''     \033[0;34m------------------> MODOS DE JOGO <--------------------\033[m
+    \033[0;34m[1] -> Nível Básico\033[m
+    \033[0;34m[2] -> Nível Intermediário\033[m
+    \033[0;34m[3] -> Nível Avançado\033[m
+    \033[0;34m-------------------------------------------------\033[m
     '''.format()
 
     return menu_inicial
 
 # FUNÇÃO QUE MOSTRA OS ESTADOS DAS TORRES DE ACORDO COM O NÍVEL ESCOLHIDO
 def estados():
-    menu_inicial = '''     ------------------> ESTADO ATUAL <--------------------
-    Torre R = {}       
-    Torre G = {}     
-    Torre B = {}
-    -------------------------------------------------
-    ESCOLHAS POSSÍVEIS:
-    [1] -> Realizar operação entre as torres
-    [2] -> SAIR
+    global valores_R,valores_G,valores_B
+
+    menu_inicial = '''     \033[0;35m------------------> ESTADO ATUAL <--------------------\033[m
+    Torre R = \033[0;34m{}\033[m       
+    Torre G = \033[0;31m{}\033[m     
+    Torre B = \033[0;33m{}\033[m
+    \033[0;35m-------------------------------------------------\033[m
+    \033[0;35mESCOLHAS POSSÍVEIS:\033[m
+    \033[0;35m[1] -> Realizar operação entre as torres\033[m
+    \033[0;35m[2] -> SAIR\033[m
     '''.format(torre_r(),torre_g(),torre_b())
 
     return menu_inicial
 
 # FUNÇÃO PARA O USUÁRIO ESCOLHER
 def escolha_feita():
-    escolha = int(input("Qual opção desejada? "))
+    escolha = int(input("\033[0;33mQual opção desejada? \033[m"))
+    
     if escolha != 1 and escolha != 2 and escolha != 3:
-        print("Escolha inválida.")
-        escolha = int(input("Tente de novo:"))
+        print("\033[0;35mEscolha inválida.\033[m")
+        escolha = int(input("\033[0;35mTente de novo:\033[m"))
 
     return escolha
 
@@ -109,22 +122,24 @@ def torre_g():
     global valores_G,nivel_jogo
     vetor_g = []
 
-    # VERIFICANDO O NÍVEL DE JOGO ESCOLHIDO E AJUSTANDO MEU VETOR PARA ATENDER ESSE TIPO
-    if nivel_jogo == 1:
-        valores_G is None
-        valores_G = vetor_g
-    elif nivel_jogo == 2:
-        lista = [66,71,82]
-        for letra in range(3):
-            letra_sorteada = random.choice(lista)
-            vetor_g.append(chr(letra_sorteada))
+    if valores_G is None:
+        # VERIFICANDO O NÍVEL DE JOGO ESCOLHIDO E AJUSTANDO MEU VETOR PARA ATENDER ESSE TIPO
+        if nivel_jogo == 1:
+            valores_G is None
             valores_G = vetor_g
-    elif nivel_jogo == 3:
-        lista = [66,71,82]
-        for letra in range(9):
-            letra_sorteada = random.choice(lista)
-            vetor_g.append(chr(letra_sorteada))
-            valores_G = vetor_g
+        elif nivel_jogo == 2:
+            lista = [66,71,82]
+            for letra in range(3):
+                letra_sorteada = random.choice(lista)
+                vetor_g.append(chr(letra_sorteada))
+                valores_G = vetor_g
+        elif nivel_jogo == 3:
+            lista = [66,71,82]
+            for letra in range(9):
+                letra_sorteada = random.choice(lista)
+                vetor_g.append(chr(letra_sorteada))
+                valores_G = vetor_g
+        
     return valores_G
 
 # FUNÇÃO QUE CRIA TORRE B VAZIA
@@ -133,28 +148,30 @@ def torre_b():
     global valores_B,nivel_jogo
     vetor_b = []
     
-    # VERIFICANDO O NÍVEL DE JOGO ESCOLHIDO E AJUSTANDO MEU VETOR PARA ATENDER ESSE TIPO
-    if nivel_jogo == 1:
-        valores_B is None
-        valores_B = vetor_b
-    elif nivel_jogo == 2:
-        lista = [66,71,82]
-        for letra in range(3):
-            letra_sorteada = random.choice(lista)
-            vetor_b.append(chr(letra_sorteada))
+    if valores_B is None:
+        # VERIFICANDO O NÍVEL DE JOGO ESCOLHIDO E AJUSTANDO MEU VETOR PARA ATENDER ESSE TIPO
+        if nivel_jogo == 1:
+            valores_B is None
             valores_B = vetor_b
-    elif nivel_jogo == 3:
-        lista = [66,71,82]
-        for letra in range(8):
-            letra_sorteada = random.choice(lista)
-            vetor_b.append(chr(letra_sorteada))
-            valores_B = vetor_b
-    
+        elif nivel_jogo == 2:
+            lista = [66,71,82]
+            for letra in range(3):
+                letra_sorteada = random.choice(lista)
+                vetor_b.append(chr(letra_sorteada))
+                valores_B = vetor_b
+        elif nivel_jogo == 3:
+            lista = [66,71,82]
+            for letra in range(8):
+                letra_sorteada = random.choice(lista)
+                vetor_b.append(chr(letra_sorteada))
+                valores_B = vetor_b
+        
     return valores_B
 
 # FUNÇÃO QUE VAI FAZER TRANSFERÊNCIAS ENTRE AS MINHAS TORRES
 def transferencias():
     global valores_R,valores_G,valores_B
+
     # DICIONÁRIO PARA IDENTIFICAR LOCAL DE RETIRADA E LOCAL DE INCREMENTO
     dicionario = {
         'R' : valores_R,
@@ -163,7 +180,7 @@ def transferencias():
         }
 
     while True:
-        operacao = input().upper().split()
+        operacao = input().upper()
         
         if len(operacao) != 2:
             print("Operação inválida,tente novamente.")
@@ -188,7 +205,10 @@ def transferencias():
         elif partindo == chegando:
             print("Você está querendo transferir para mesma torre de retirada, não é válido esse movimento. Tente novamente")
         else:
-            incrementada.append(retirada.pop())
+            item = retirada.pop()
+            incrementada.append(item)
+            # ATUALIZA AS VARIÁVEIS GLOBAIS APÓS TRANSFERÊNCIAS
+            valores_R,valores_G,valores_B = dicionario['R'],dicionario["G"],dicionario["B"]
             break
             
         # COMO ESTOU USANDO VARIÁVEIS GLOBAIS, NÃO PRECISO RETORNAR NADA. ELAS JÁ SÃO ALTERADAS PELO MEU ESCOPO DA FUNÇÃO 
